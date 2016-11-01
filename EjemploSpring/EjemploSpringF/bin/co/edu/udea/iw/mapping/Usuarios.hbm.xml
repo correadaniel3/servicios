@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22/09/2016 12:41:24 PM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="co.edu.udea.iw.dto.Usuarios" table="usuarios">
+        <id name="login" type="java.lang.String">
+            <column name="LOGIN" length="15"/>
+            <generator class="assigned" />
+        </id>
+        <property name="apellidos" type="java.lang.String">
+            <column name="APELLIDOS" length="45" not-null="true" />
+        </property>
+        <property name="nombres" type="java.lang.String">
+            <column name="NOMBRES" length="45" not-null="true"/>
+        </property>
+        <property name="contrasena" type="java.lang.String">
+            <column name="CONTRASENA" length="125" not-null="true"/>
+        </property>
+        <!-- El fetch es para poder hacer la relacion entre las tablas
+        Usuario y Rol, entonces por cada registro encontrado hace el join
+        entre las tablas
+        Tener en cuenta que hibernate por defecto tiene el lazy=true
+        por lo tanto hay que tener en cuenta esto a la hora de hacer las
+        sessiones-->
+       <many-to-one name="rol" class="co.edu.udea.iw.dto.Roles" fetch="join" lazy="false">
+       	<column name="ROL"/>
+       </many-to-one>
+    </class>
+</hibernate-mapping>

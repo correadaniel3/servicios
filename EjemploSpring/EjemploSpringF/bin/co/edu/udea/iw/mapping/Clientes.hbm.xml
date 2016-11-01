@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 27/09/2016 12:57:31 PM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="co.edu.udea.iw.dto.Clientes" table="clientes">
+    	<id name="cedula" type="java.lang.String">
+            <column name="CEDULA" />
+            <generator class="assigned" />
+        </id>
+        <property name="apellidos" type="java.lang.String">
+            <column name="APELLIDOS" length="15" not-null="true"/>
+        </property>
+        <property name="nombres" type="java.lang.String">
+            <column name="NOMBRES" length="30" not-null="true"/>
+        </property>
+        <property name="email" type="java.lang.String">
+            <column name="EMAIL" length="120" not-null="true"/>
+        </property>
+		<many-to-one name="usuarioCrea" class="co.edu.udea.iw.dto.Usuarios"
+			fetch="join" lazy="false">
+			<column name="USUARIOCREA" />
+		</many-to-one>
+		<many-to-one name="usuarioModifica" class="co.edu.udea.iw.dto.Usuarios"
+			fetch="join" lazy="false">
+			<column name="USUARIOMODIFICA" />
+		</many-to-one>
+		<many-to-one name="usuarioElimina" class="co.edu.udea.iw.dto.Usuarios"
+			fetch="join" lazy="false">
+			<column name="USUARIOELIMINA" />
+		</many-to-one>
+        <property name="fechaModificacion" type="java.util.Date">
+            <column name="FECHAMODIFICACION" not-null="false"/>
+        </property>
+        <property name="fechaCreacion" type="java.util.Date">
+            <column name="FECHACREACION" not-null="true"/>
+        </property>
+        <property name="eliminado" type="java.lang.Boolean">
+            <column name="ELIMINADO" not-null="false"/>
+        </property>
+        <property name="fechaEliminacion" type="java.util.Date">
+            <column name="FECHAELIMINACION" not-null="false"/>
+        </property>
+        <!-- Para hacer las relaciones de one a muchos entre los clientes-->
+        <set name="direcciones">
+        	<key column="cedula"></key>
+        	<one-to-many class="co.edu.udea.iw.dto.Direccion"/>
+        </set>
+    </class>
+</hibernate-mapping>
